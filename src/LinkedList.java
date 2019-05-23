@@ -49,7 +49,7 @@ public class LinkedList {
         // Return the list by head
         return list;
     }
-
+    // Remove nth node from the front of the linked list
     public static void removeFromFront(LinkedList list, int index) throws Exception
     {
         int count = 1;
@@ -72,7 +72,7 @@ public class LinkedList {
 
         }
     }
-
+    // Remove nth Node from the back of the linked list
     public static void removeFromBack(LinkedList list, int index) throws Exception
     {
         int count = 1;
