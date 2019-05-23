@@ -1,10 +1,11 @@
-import java.io.*;
-
 // Java program to implement
 // a Singly Linked List
 public class LinkedList {
 
-    Node head; // head of list
+    /**
+     *
+     */
+    private Node head; // head of list
 
     // Linked list Node.
     // This inner class is made static
@@ -23,7 +24,7 @@ public class LinkedList {
     }
 
     // Method to insert a new node
-    public static LinkedList insert(LinkedList list, int data)
+    private static LinkedList insert(LinkedList list, int data)
     {
         // Create a new node with given data
         Node new_node = new Node(data);
@@ -171,6 +172,23 @@ public class LinkedList {
         return null;
     }
 
+    // Reverse the Linked List
+    public static void reverseList(LinkedList list)
+    {
+        Node prev = null;
+        Node curr = list.head;
+        Node next = null;
+
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        list.head = prev;
+
+
+    }
     // Driver code
     public static void main(String[] args) throws Exception {
         /* Start with the empty list. */
@@ -186,15 +204,15 @@ public class LinkedList {
         list = insert(list, 3);
         list = insert(list, 4);
         list = insert(list, 5);
-        getNthNode(list,5).next = getNthNode(list,3);
+        //getNthNode(list,5).next = getNthNode(list,3);
         /*list = insert(list, 6);
         list = insert(list, 7);
         list = insert(list, 8);
-*/
         Node curr = findLoop(list);
-        System.out.println(curr.data);
+        System.out.println(curr.data)*/
         // Print the LinkedList
-        //printList(list);
+        reverseList(list);
+        printList(list);
 
         //removeFromFront(list,5);
         //removeFromBack(list,6);
