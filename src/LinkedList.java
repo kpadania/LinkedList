@@ -189,6 +189,48 @@ public class LinkedList {
 
 
     }
+
+    public static void removeNodesBackInsertHead(LinkedList list, int n)
+    {
+        int count = 1;
+        Node prev = null;
+        Node curr = list.head;
+        Node next = list.head;
+        while(count<n){
+            next = next.next;
+            count++;
+        }
+
+        while (next!=null && next.next != null) {
+            prev = curr;
+            next = next.next;
+            curr = curr.next;
+        }
+
+        prev.next = null;
+        //reverse the new list
+        prev = null;
+        Node newCurr = curr;
+        next = null;
+
+        while(newCurr != null){
+            next = newCurr.next;
+            newCurr.next = prev;
+            prev = newCurr;
+            newCurr = next;
+        }
+        curr = prev;
+        Node temp = curr;
+        //Attached the new reversed list to the old list and point the head to the new list
+        while(temp.next!=null)
+        {
+            temp = temp.next;
+        }
+
+        temp.next = list.head;
+        list.head = curr;
+
+    }
     // Driver code
     public static void main(String[] args) throws Exception {
         /* Start with the empty list. */
@@ -205,13 +247,13 @@ public class LinkedList {
         list = insert(list, 4);
         list = insert(list, 5);
         //getNthNode(list,5).next = getNthNode(list,3);
-        /*list = insert(list, 6);
+        list = insert(list, 6);
         list = insert(list, 7);
         list = insert(list, 8);
-        Node curr = findLoop(list);
+        /*Node curr = findLoop(list);
         System.out.println(curr.data)*/
         // Print the LinkedList
-        reverseList(list);
+        removeNodesBackInsertHead(list, 5);
         printList(list);
 
         //removeFromFront(list,5);
