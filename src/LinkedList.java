@@ -231,17 +231,100 @@ public class LinkedList {
         list.head = curr;
 
     }
+
+    public static LinkedList addTwoList(LinkedList list1, LinkedList list2)
+    {
+        LinkedList finalList = new LinkedList();
+        reverseList(list1);
+        reverseList(list2);
+        Node curr1 = list1.head;
+        Node curr2 = list2.head;
+        boolean carryOverFlag = false;
+
+
+        while(curr1 != null || curr2 != null)
+        {
+            if(curr1 != null && curr2 != null) {
+                int temp = curr1.data + curr2.data;
+                if (temp < 10 && carryOverFlag) {
+                    if (temp + 1 >= 10) {
+                        finalList = insert(finalList, (temp + 1) % 10);
+                        carryOverFlag = true;
+                    }
+                    finalList = insert(finalList, temp % 10);
+                } else if (temp < 10) {
+                    finalList = insert(finalList, temp);
+
+                } else if(temp>=10){
+                    if(carryOverFlag){
+                        finalList = insert(finalList, (temp + 1) % 10);
+                    }else{
+                        finalList = insert(finalList, temp % 10);
+                    }
+
+                    carryOverFlag = true;
+
+                }
+            } else if(curr1 != null && curr2 == null){
+                if(carryOverFlag){
+                    if(curr1.data + 1 >=10){
+                        insert(finalList,(curr1.data+1)%10);
+                        if(curr1.next == null){
+                            insert(finalList,1);
+                        } else {
+                            carryOverFlag = true;
+                        }
+                    } else {
+                        insert(finalList,curr1.data+1);
+                    }
+                } else {
+                    insert(finalList, curr1.data);
+                }
+            } else if(curr2 != null && curr1 == null) {
+                if(carryOverFlag){
+                    if(curr2.data + 1 >=10){
+                        insert(finalList,(curr2.data+1)%10);
+                        if(curr2.next == null){
+                            insert(finalList,1);
+                        } else {
+                            carryOverFlag = true;
+                        }
+                    } else {
+                        insert(finalList,curr2.data+1);
+                    }
+                } else {
+                    insert(finalList, curr2.data);
+                }
+            }
+
+            if(curr1 !=null) {
+                curr1 = curr1.next;
+            }
+            if(curr2 !=null){
+                curr2 = curr2.next;
+            }
+
+        }
+
+        return finalList;
+    }
     // Driver code
     public static void main(String[] args) throws Exception {
         /* Start with the empty list. */
-        LinkedList list = new LinkedList();
-
+        LinkedList list1 = new LinkedList();
+        LinkedList list2 = new LinkedList();
+        LinkedList list3 = new LinkedList();
+        list1 = insert(list1, 9);
+        list1 = insert(list1, 8);
+        list1 = insert(list1, 5);
+        list2 = insert(list2, 7);
+        list2 = insert(list2, 5);
         //
         // ******INSERTION******
         //
 
         // Insert the values
-        list = insert(list, 1);
+        /*list = insert(list, 1);
         list = insert(list, 2);
         list = insert(list, 3);
         list = insert(list, 4);
@@ -249,12 +332,14 @@ public class LinkedList {
         //getNthNode(list,5).next = getNthNode(list,3);
         list = insert(list, 6);
         list = insert(list, 7);
-        list = insert(list, 8);
+        list = insert(list, 8);*/
         /*Node curr = findLoop(list);
         System.out.println(curr.data)*/
-        // Print the LinkedList
-        removeNodesBackInsertHead(list, 5);
-        printList(list);
+        // Print the LinkedLists
+        //removeNodesBackInsertHead(list, 5);
+        list3 = addTwoList(list1,list2);
+        reverseList(list3);
+        printList(list3);
 
         //removeFromFront(list,5);
         //removeFromBack(list,6);
